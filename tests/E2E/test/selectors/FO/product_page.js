@@ -48,6 +48,7 @@ module.exports = {
     left_column_block: '//*[@id="left-column"]',
     pagination_block: '//*[@id="js-product-list"]/nav',
     filename_link: '(//*[@id="attachments"]//a)[1]',
-    productLink: '//*[@id="js-product-list"]//a[contains(text(), "%PRODUCTNAME")]'
+    productLink: '//*[@id="js-product-list"]//a[contains(text(), "%PRODUCTNAME")]',
+    product_image: '(//*[@id="main"]//img)[1]'
   }
 };

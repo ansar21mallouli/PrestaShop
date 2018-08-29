@@ -48,6 +48,10 @@ module.exports = {
     second_display_top_link_widget:'//*[@id="header"]/div[2]/div/div[1]/div[2]/div[3]/div/div[2]/p',
     not_found_error_message: '//*[@id="main"]//h1',
     product_name: '//*[@id="js-product-list"]//h2//a[contains(text(),"%PAGENAME")]',
-    personal_info: '//*[@id="footer_account_list"]//a[@title="Personal info"]'
+    personal_info: '//*[@id="footer_account_list"]//a[@title="Personal info"]',
+    first_product_image: '(//*[@id="content"]//div[@class="products"]//img)[1]',
+    first_product_block: '(//*[@id="content"]//div[@class="products"]//a)[1]',
+    first_category_element: '//*[@id="top-menu"]/li[1]/a',
+    store_link: '//*[@id="link-static-page-stores-2"]'
   }
 };
