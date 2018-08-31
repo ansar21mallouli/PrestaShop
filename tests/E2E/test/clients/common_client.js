@@ -368,6 +368,10 @@ class CommonClient {
       .then((ids) => this.client.switchTab(ids[id]));
   }
 
+  closeOtherWindow(id) {
+    return this.client.close(id);
+  }
+
   isExisting(selector, pause = 0) {
     return this.client
       .pause(pause)
@@ -417,6 +421,10 @@ class CommonClient {
 
   alertAccept() {
     return this.client.alertAccept();
+  }
+
+  alertDismiss() {
+    return this.client.alertDismiss();
   }
 
   showElement(className, order) {
@@ -590,6 +598,16 @@ class CommonClient {
       return this.client
         .middleClick(selector)
     }
+  }
+
+  checkImageSize(selector, width, height, pause = 0) {
+    return this.client
+      .pause(pause)
+      .waitForExist(selector, 9000)
+      .then(() => this.client.getElementSize(selector, 'width'))
+      .then((text) => expect(text.toString()).to.equal(width))
+      .then(() => this.client.getElementSize(selector, 'height'))
+      .then((text) => expect(text.toString()).to.equal(height))
   }
 
 }

@@ -60,6 +60,9 @@ module.exports = {
     display_after_carrier_second_link_widget: '//*[@id="hook-display-after-carrier"]//div[2]/p',
     modal_content: '//*[@id="blockcart-modal"]//div[@class="modal-content"]',
     cart_page: '//*[@id="cart"]',
-    cart_body: '(//*[@id="main"]//div[contains(@class, "body")])[1]'
+    cart_body: '(//*[@id="main"]//div[contains(@class, "body")])[1]',
+    last_product_customization_button: '(//*[@id="main"]//div[contains(@class,"product-line-grid-body")])[last()]/a',
+    last_product_modal_image: '(//*[@id="main"]//div[@class="modal-content"])[last()]//img',
+    last_product_modal_close_button: '(//*[@id="main"]//div[@class="modal-content"])[last()]//button',
   }
 };

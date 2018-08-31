@@ -164,6 +164,7 @@ module.exports = {
     options_first_custom_field_require: '//*[@id="form_step6_custom_fields_0_require"]',
     options_second_custom_field_label: '//*[@id="form_step6_custom_fields_1_label_1"]',
     options_second_custom_field_type: '//*[@id="form_step6_custom_fields_1_type"]',
+    options_second_custom_field_require: '//*[@id="form_step6_custom_fields_1_require"]',
     options_add_new_file_button: '//*[@id="step6"]/div/div/div/div/div/div[11]/div/a',
     options_select_file: '//*[@id="form_step6_attachment_product_file"]',
     options_add_virtual_product_file_button: '//*[@id="form_step3_virtual_product_file"]',
@@ -227,7 +228,10 @@ module.exports = {
     product_pack_items: '//*[@id="form_step1_inputPackItems-data"]',
     add_products_to_pack: '//*[@id="js_form_step1_inputPackItems"]/div',
     attribute_group_name: '//*[@id="attributes-list"]//a[text()[contains(.,"%NAME")]]',
-    attribute_value_checkbox: '//*[@id="attribute-group-%ID"]/div/div[%S]//label'
+    attribute_value_checkbox: '//*[@id="attribute-group-%ID"]/div/div[%S]//label',
+    delete_customized_field_button: '//*[@id="custom_fields"]//a[contains(@class,"delete")]',
+    save_button: '//*[@id="form"]/div[contains(@class,"product-footer")]//button[@type="submit"]',
+    choose_file_button: '//*[@id="main"]//input[@type="file"]'
   },
   ProductList: {
     product_id: '//*[@id="product_catalog_list"]//tr[%ID]/td[2]/label',
