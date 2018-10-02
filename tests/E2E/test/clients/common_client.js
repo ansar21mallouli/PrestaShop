@@ -332,7 +332,7 @@ class CommonClient {
    * @returns {*}
    */
   checkFile(folderPath, fileName, pause = 0) {
-    fs.stat(folderPath + fileName, function(err, stats) {
+    fs.stat(folderPath + fileName, function (err, stats) {
       err === null && stats.isFile() ? global.existingFile = true : global.existingFile = false;
     });
 
@@ -590,6 +590,53 @@ class CommonClient {
       return this.client
         .middleClick(selector)
     }
+  }
+
+  /**
+   * These functions are used to sort table then check the sorted table
+   * elementsTable, elementsSortedTable are two global variables that must be initialized in the sort table function
+   */
+
+  getTableField(element_list, i, sorted = false) {
+    return this.client
+      .getText(element_list.replace("%ID", i + 1)).then(function (name) {
+        if (sorted) {
+          elementsSortedTable[i] = name.toLowerCase();
+        }
+        else {
+          elementsTable[i] = name.toLowerCase();
+        }
+      });
+  }
+
+  checkSortTable() {
+    return this.client
+      .pause(1000)
+      .then(() => {
+        this.client
+          .waitUntil(function () {
+            expect(elementsTable).to.deep.equal(elementsSortedTable);
+          });
+      });
+  }
+
+  sortByAsc() {
+    return elementsTable.sort();
+  }
+
+  sortByDesc() {
+    return elementsTable.sort().reverse();
+  }
+
+  sortFieldTable(sort_mode) {
+    return this.client
+      .pause(1000)
+      .then(() => {
+        this.client
+          .waitUntil(function () {
+            sort_mode === 'ASC' ? this.sortByAsc() : this.sortByDesc();
+          });
+      });
   }
 
 }
