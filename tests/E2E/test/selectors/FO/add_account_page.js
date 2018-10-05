@@ -42,6 +42,21 @@ module.exports = {
     email_sent_message: '//*[@id="content-hook_order_confirmation"]//p',
     save_notification: '//*[@id="notifications"]//li',
     danger_alert: '//*[@id="customer-form"]//li[contains(@class,"alert-danger")]',
-    add_new_address: '//*[@id="checkout-addresses-step"]//p[@class="add-address"]/a'
+    add_new_address: '//*[@id="checkout-addresses-step"]//p[@class="add-address"]/a',
+    delete_address_button: '(//*[@id="main"]//article[@class="address"])[1]//a[@data-link-action="delete-address"]',
+    address_block: 'article.address',
+    create_new_address_button: '//*[@id="content"]//a[@data-link-action="add-address"]',
+    country_list: '//*[@id="content"]//select[@name="id_country"]',
+    country_option: '//*[@id="content"]//select[@name="id_country"]//option[text()="%B"]',
+    last_name_input: '//*[@id="content"]//input[@name="lastname"]',
+    first_name_input: '//*[@id="content"]//input[@name="firstname"]',
+    address1_input: '//*[@id="content"]//input[@name="address1"]',
+    address2_input: '//*[@id="content"]//input[@name="address2"]',
+    dni_input: '//*[@id="content"]//input[@name="dni"]',
+    poste_code_input: '//*[@id="content"]//input[@name="postcode"]',
+    city_input: '//*[@id="content"]//input[@name="city"]',
+    phone_input: '//*[@id="content"]//input[@name="phone"]',
+    date_birthday_input: '//*[@id="content"]//input[@name="birthday"]',
+    personal_information_tab: '//*[@id="checkout-personal-information-step"]/h1',
   }
 };
