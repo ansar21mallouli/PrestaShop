@@ -92,6 +92,7 @@ scenario('Create, Edit, delete "Customer"', () => {
   scenario('Verify that the address related to the deleted customer doesn\'t exist', client => {
     test('should go to "Addresses" page', () => client.switchWindow(2));
     test('should refresh the page', () => client.refresh());
+    //This function (isNotExisting) must be changed because the customer_link change
     test('should check that the deleted customer address doesn\'t exist', () => client.isNotExisting(Customer.customer_link.replace('%ID', date_time)));
     test('should go to Customers page', () => client.switchWindow(1));
   }, 'customer');

@@ -186,6 +186,7 @@ module.exports = {
               client.searchByValue(Files.filter_associated_input, Files.filter_search_button, searchValue);
             }
           })
+          //This function must to be changed from isVisible to checkTextValue because the value of selector empty_list is changed
           .then(() => client.isVisible(Files.empty_list, 1000))
           .then(() => client.getFilesNumber('table-attachment', 1000));
       });
