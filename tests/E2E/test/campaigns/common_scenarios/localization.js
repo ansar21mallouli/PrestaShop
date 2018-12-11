@@ -142,7 +142,7 @@ module.exports = {
   generateRtlStylesheet: function () {
     scenario('Generate RTL stylesheet', client => {
       test('should go to "Theme & logo" page', () => client.goToSubtabMenuPage(Menu.Improve.Design.design_menu, Menu.Improve.Design.theme_logo_submenu));
-      test('should switch the "Generate RTL stylesheet" to "YES"', () => client.scrollWaitForExistAndClick(ThemeAndLogo.generate_rtl_stylesheet_button.replace('%S', 'on')));
+      test('should switch the "Generate RTL stylesheet" to "YES"', () => client.waitForExistAndClick(ThemeAndLogo.generate_rtl_stylesheet_button.replace('%S', 'on')));
       test('should click on "Save" button', () => client.waitForExistAndClick(ThemeAndLogo.save_button));
       test('should verify the appearance of the green validation', () => client.checkTextValue(Design.success_panel, 'Your RTL stylesheets has been generated successfully'));
     }, 'common_client');
@@ -160,7 +160,7 @@ module.exports = {
             }
           });
       });
-      test('should click on "Save" button', () => client.waitForExistAndClick(Localization.Localization.advanced_save_button));
+      test('should click on "Save" button', () => client.waitForExistAndClick(Localization.Localization.advanced_save_button, 1000));
       test('should verify the appearance of the green validation', () => client.checkTextValue(Localization.Localization.alert_panel.replace("%B", "alert-text"), 'Update successful'));
     }, 'common_client');
   }
