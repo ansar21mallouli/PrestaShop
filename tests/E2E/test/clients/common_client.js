@@ -1,5 +1,6 @@
 const {getClient} = require('../common.webdriverio.js');
 const {languageFO} = require('../selectors/FO/index');
+const exec = require('child_process').exec;
 let path = require('path');
 let fs = require('fs');
 let pdfUtil = require('pdf-to-text');
@@ -318,7 +319,6 @@ class CommonClient {
     pdfUtil.pdfToText(folderPath + fileName + '.pdf', function (err, data) {
       global.indexText = data.indexOf(text)
     });
-
     return this.client
       .pause(2000)
       .then(() => expect(global.indexText, text + "does not exist in the PDF document").to.not.equal(-1));
@@ -660,6 +660,37 @@ class CommonClient {
         }
       });
   }
+
+  changeOrderState(selector, state) {
+    return this.client
+      .waitForExist(selector.order_state_select, 90000)
+      .execute(function () {
+        document.querySelector('#id_order_state').style = "";
+      })
+      .selectByVisibleText(selector.order_state_select, state)
+      .waitForExistAndClick(selector.update_status_button)
+  }
+
+  displayHiddenBlock(selector) {
+    return this.client
+      .execute(function (selector) {
+        document.getElementsByClassName(selector).style = '';
+      })
+  }
+
+   setMachineDate(formatDate) {
+     this.client.pause(10000);
+     exec('sudo date -s "' + formatDate + '"',
+      (error, stdout, stderr) => {
+        if (error !== null) {
+          console.log(`exec error: ${error}`);
+        }
+      });
+     return this.client
+       .pause(3000)
+       .refresh();
+  }
+
 }
 
 module.exports = CommonClient;
