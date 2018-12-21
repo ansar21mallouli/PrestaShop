@@ -223,15 +223,15 @@ module.exports = {
   sortProduct: function (selector, sortBy) {
     scenario('Check the sort of products by "' + sortBy.toUpperCase() + '"', client => {
       //if (sortBy !== 'id_product') {
-        test('should click on "Sort by ASC" icon', () => {
-          let sortSelector = sortBy === 'name' || sortBy === 'reference' || sortBy === 'name_category' || sortBy === 'price' || sortBy === 'sav_quantity' || sortBy === 'active' ? ProductList.sort_button.replace("%B", sortBy) : sortBy === 'id_product' ? ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "desc") : ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "asc");
-          for (let j = 0; j < global.productsPageNumber; j++) {
-            promise = client.getProductsInformation(selector, j);
-          }
-          return promise
-            .then(() => client.moveToObject(sortSelector))
-            .then(() => client.waitForExistAndClick(sortSelector));
-        });
+      test('should click on "Sort by ASC" icon', () => {
+        let sortSelector = sortBy === 'name' || sortBy === 'reference' || sortBy === 'name_category' || sortBy === 'price' || sortBy === 'sav_quantity' || sortBy === 'active' ? ProductList.sort_button.replace("%B", sortBy) : sortBy === 'id_product' ? ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "desc") : ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "asc");
+        for (let j = 0; j < global.productsPageNumber; j++) {
+          promise = client.getProductsInformation(selector, j);
+        }
+        return promise
+          .then(() => client.moveToObject(sortSelector))
+          .then(() => client.waitForExistAndClick(sortSelector));
+      });
       //}
       test('should check that the products is well sorted by ASC', () => {
         for (let j = 0; j < global.productsNumber; j++) {
@@ -268,7 +268,6 @@ module.exports = {
         }
         await client.moveToObject('//*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="desc"]/span[@role="button"]');
         await client.waitForExistAndClick('//*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="desc"]/span[@role="button"]');
-          await client.pause(7000);
       });
       test('should check that the currencies are well sorted by ASC', async () => {
         for (let j = 0; j < (parseInt(global.productsNumber)); j++) {
@@ -276,14 +275,17 @@ module.exports = {
         }
         await client.checkSortTable(isNumber, 'ASC');
       });
-    /*  test('movetoobject', () => client.moveToObject('//!*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="asc"]/span[@role="button"]'));
-      test('should click on "Sort by DESC" icon', () => client.waitForExistAndClick('//!*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="asc"]/span[@role="button"]'));
+
+      test('should click on "Sort by DESC" icon', async () => {
+        await client.moveToObject('//*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="asc"]/span[@role="button"]');
+        await client.waitForExistAndClick('//*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="asc"]/span[@role="button"]');
+      });
       test('should check that the currencies are well sorted by DESC', async () => {
         for (let j = 0; j < (parseInt(global.productsNumber)); j++) {
           await client.getTableField(selector, j, true);
         }
         await client.checkSortTable(isNumber, 'DESC');
-      });*/
+      });
     }, 'product/product');
   },
 
