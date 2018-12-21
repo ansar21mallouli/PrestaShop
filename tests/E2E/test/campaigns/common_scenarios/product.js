@@ -222,15 +222,17 @@ module.exports = {
   },
   sortProduct: function (selector, sortBy) {
     scenario('Check the sort of products by "' + sortBy.toUpperCase() + '"', client => {
-      test('should click on "Sort by ASC" icon', () => {
-        let sortSelector = sortBy === 'name' || sortBy === 'reference' ? ProductList.sort_button.replace("%B", sortBy) : sortBy === 'id_product' ? ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "desc") : ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "asc");
-        for (let j = 0; j < global.productsNumber; j++) {
-          promise = client.getProductsInformation(selector, j);
-        }
-        return promise
-          .then(() => client.moveToObject(sortSelector))
-          .then(() => client.waitForExistAndClick(sortSelector));
-      });
+      //if (sortBy !== 'id_product') {
+        test('should click on "Sort by ASC" icon', () => {
+          let sortSelector = sortBy === 'name' || sortBy === 'reference' || sortBy === 'name_category' || sortBy === 'price' || sortBy === 'sav_quantity' || sortBy === 'active' ? ProductList.sort_button.replace("%B", sortBy) : sortBy === 'id_product' ? ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "desc") : ProductList.sort_by_icon.replace("%B", sortBy).replace("%W", "asc");
+          for (let j = 0; j < global.productsPageNumber; j++) {
+            promise = client.getProductsInformation(selector, j);
+          }
+          return promise
+            .then(() => client.moveToObject(sortSelector))
+            .then(() => client.waitForExistAndClick(sortSelector));
+        });
+      //}
       test('should check that the products is well sorted by ASC', () => {
         for (let j = 0; j < global.productsNumber; j++) {
           promise = client.getProductsInformation(selector, j, true);
@@ -254,6 +256,37 @@ module.exports = {
       });
     }, 'product/product');
   },
+
+  sortProductv: async function (selector, sortBy, isNumber = false) {
+    global.elementsSortedTable = [];
+    global.elementsTable = [];
+    scenario('Check the sort of currencies by "' + sortBy.toUpperCase() + '"', client => {
+      //test('should get the number of currencies', () => client.getTextInVar(Localization.Currencies.currency_number_span, 'number_currency'));
+      test('should click on "Sort by ASC" icon', async () => {
+        for (let j = 0; j < (parseInt(global.productsNumber)); j++) {
+          await client.getTableField(selector, j);
+        }
+        await client.moveToObject('//*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="desc"]/span[@role="button"]');
+        await client.waitForExistAndClick('//*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="desc"]/span[@role="button"]');
+          await client.pause(7000);
+      });
+      test('should check that the currencies are well sorted by ASC', async () => {
+        for (let j = 0; j < (parseInt(global.productsNumber)); j++) {
+          await client.getTableField(selector, j, true);
+        }
+        await client.checkSortTable(isNumber, 'ASC');
+      });
+    /*  test('movetoobject', () => client.moveToObject('//!*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="asc"]/span[@role="button"]'));
+      test('should click on "Sort by DESC" icon', () => client.waitForExistAndClick('//!*[@id="product_catalog_list"]//div[@data-sort-col-name="id_product" and @data-sort-direction="asc"]/span[@role="button"]'));
+      test('should check that the currencies are well sorted by DESC', async () => {
+        for (let j = 0; j < (parseInt(global.productsNumber)); j++) {
+          await client.getTableField(selector, j, true);
+        }
+        await client.checkSortTable(isNumber, 'DESC');
+      });*/
+    }, 'product/product');
+  },
+
   checkPaginationFO(client, productPage, buttonName, pageNumber) {
     let selectorButton = buttonName === 'Next' ? productPage.pagination_next : productPage.pagination_previous;
     test('should click on "' + buttonName + '" button', () => {

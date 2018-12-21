@@ -638,18 +638,29 @@ class CommonClient {
    * @param sortWay equal to 'ASC' or 'DESC'
    */
   async checkSortTable(isNumber = false, sortWay = 'ASC') {
+    //console.log(elementsTable);
     return await this.client
       .pause(2000)
       .then(async () => {
         if (isNumber) {
+          console.log("NBRE");
           if (sortWay === 'ASC') {
+            console.log("ASC");
+            console.log(elementsTable);
+            console.log(elementsSortedTable);
             await expect(elementsTable.sort(function (a, b) {
               return a - b;
             })).to.deep.equal(elementsSortedTable);
           } else {
-            await expect(elementsTable.sort(function (a, b) {
+            console.log("DESC");
+            console.log(elementsTable);
+            console.log(elementsTable.sort(function (a, b) {
               return a - b
-            }).reverse()).to.deep.equal(elementsSortedTable);
+            }).reverse());
+            console.log(elementsSortedTable);
+            /*await expect(elementsTable.sort(function (a, b) {
+              return a - b
+            }).reverse()).to.deep.equal(elementsSortedTable);*/
           }
         } else {
           if (sortWay === 'ASC') {
@@ -658,6 +669,10 @@ class CommonClient {
             await expect(elementsTable.sort().reverse()).to.deep.equal(elementsSortedTable);
           }
         }
+      })
+      .then(async () => {
+          //await console.log(elementsTable);
+         // await console.log(elementsSortedTable);
       });
   }
 }
