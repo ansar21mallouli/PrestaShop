@@ -116,6 +116,7 @@ module.exports = {
     id_shopping_carts: 'table-cart',
     reset_button: '//*[@name="submitResetcart"]',
     checkbox_input: '//*[@id="table-cart"]//input[@name="cartBox[]"]',
+    filter_id_input: '//*[@id="table-cart"]//input[@name="cartFilter_id_cart"]',
   },
 
   CreditSlip: {
