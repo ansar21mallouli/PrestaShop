@@ -112,10 +112,8 @@ class Product extends CommonClient {
       .waitAndSetValue(AddProductPage.feature_custom_value_height, data.standard.features.feature1.custom_value);
   }
 
-  setPrice(selector, price) {
-    return this.client
-      .scrollTo(selector, 50)
-      .waitAndSetValue(selector, price);
+  async setPrice(selector, price) {
+    await this.waitAndSetValue(selector, price);
   }
 
   setVariationsQuantity(addProductPage, value) {

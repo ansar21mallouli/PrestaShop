@@ -1,9 +1,10 @@
 'use strict';
-
+var common = require('../common_data');
 var path = require('path');
 var should = require('should');
 
 module.exports = {
+
   standard: {
     name: "ST",
     new_category_name: "NewStandard",

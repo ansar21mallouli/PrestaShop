@@ -4,7 +4,7 @@ module.exports = {
     login_input: '#login-form input[name="email"]',
     password_inputFO: '#login-form input[name="password"]',
     login_button: '#login-form footer button',
-    sign_out_button: '//*[@id="_desktop_user_info"]/div/a[1]',
+    sign_out_button: '#_desktop_user_info a:nth-of-type(1)',
     logo_home_page: '#_desktop_logo a',
     product_list_button: '//*[@id="content"]/section/a',
     categories_list: '//*[@id="left-column"]/div[1]/ul/li[2]/ul',

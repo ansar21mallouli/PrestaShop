@@ -18,7 +18,10 @@ let productData = {
 
 scenario('Create "Product"', () => {
   scenario('Login in the Back Office', client => {
-    test('should open the browser', () => client.open());
+    test('should open the browser', async () => {
+      await client.open();
+      await client.startTracing('regularCreateProduct1');
+    });
     test('should login successfully in the Back Office', () => client.signInBO(AccessPageBO));
   }, 'common_client');
   welcomeScenarios.findAndCloseWelcomeModal();
@@ -31,7 +34,10 @@ scenario('Create "Product"', () => {
 
 scenario('Check the created product in the Front Office', () => {
   scenario('Login in the Front Office', client => {
-    test('should open the browser', () => client.open());
+    test('should open the browser', async () => {
+      await client.open();
+      await client.startTracing('regularCreateProduct2');
+    });
     test('should login successfully in the Front Office', () => client.signInFO(AccessPageFO));
   }, 'product/product');
   scenario('Check that the created product is well displayed in the Front Office', client => {

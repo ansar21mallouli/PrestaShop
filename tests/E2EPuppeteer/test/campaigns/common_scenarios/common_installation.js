@@ -56,43 +56,43 @@ module.exports = {
     }, 'installation');
 
     scenario('Step 6 : Checking installation', client => {
-      test('should create file parameter', () => client.waitForVisible(selector.create_file_parameter_step, 0, {
+      test('should create file parameter', () => client.waitForVisible(selector.create_file_parameter_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create database', () => client.waitForVisible(selector.create_database_step, 0, {
+      test('should create database', () => client.waitForVisible(selector.create_database_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create default shop', () => client.waitForVisible(selector.create_default_shop_step, 0, {
+      test('should create default shop', () => client.waitForVisible(selector.create_default_shop_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create database table', () => client.waitForVisible(selector.create_database_table_step, 0, {
+      test('should create database table', () => client.waitForVisible(selector.create_database_table_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create shop information', () => client.waitForVisible(selector.create_shop_informations_step, 0, {
+      test('should create shop information', () => client.waitForVisible(selector.create_shop_informations_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create demonstration data', () => client.waitForVisible(selector.create_demonstration_data_step, 0, {
+      test('should create demonstration data', () => client.waitForVisible(selector.create_demonstration_data_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create install module', () => client.waitForVisible(selector.install_module_step, 0, {
+      test('should create install module', () => client.waitForVisible(selector.install_module_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create addons modules', () => client.waitForVisible(selector.install_addons_modules_step, 0, {
+      test('should create addons modules', () => client.waitForVisible(selector.install_addons_modules_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should create install theme', () => client.waitForVisible(selector.install_theme_step, 0, {
+      test('should create install theme', () => client.waitForVisible(selector.install_theme_step, {
         visible: true,
         timeout: 360000
       }));
-      test('should finish installation', () => client.waitForVisible(selector.finish_step, 0, {
+      test('should finish installation', () => client.waitForVisible(selector.finish_step, {
         visible: true,
         timeout: 360000
       }));

@@ -11,7 +11,7 @@ module.exports = {
         shopping_carts_submenu: '#subtab-AdminCarts'
       },
       Catalog: {
-        catalog_menu: '//*[@id="subtab-AdminCatalog"]/a',
+        catalog_menu: '#subtab-AdminCatalog',
         products_submenu: '#subtab-AdminProducts',
         category_submenu: '#subtab-AdminCategories',
         monitoring_submenu: '#subtab-AdminTracking',

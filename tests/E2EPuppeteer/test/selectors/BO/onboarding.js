@@ -2,7 +2,7 @@ module.exports = {
   OnBoarding: {
     welcome_modal: '.onboarding-welcome',
     popup: '.onboarding-popup',
-    popup_close_button: '/html/body/div[1]/div/div/div[3]/button[1]',
+    popup_close_button: 'body button.onboarding-button-shut-down',
     stop_button: '.onboarding-button-stop',
     start_button: '//div[@class="onboarding-welcome"]//button[contains(text(), "Start")]',
     resume_button: '//*[@id="nav-sidebar"]//button[contains(@class, "resume")] |//*[contains(@class,"nav-bar")]//button[contains(@class, "resume")]',
