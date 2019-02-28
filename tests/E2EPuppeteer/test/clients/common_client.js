@@ -278,6 +278,11 @@ class CommonClient {
     let cookiesTable = await page.cookies();
     await page.deleteCookie({name: cookiesTable[1].name});
   }
+
+  async accessToFO(selector) {
+    await page.goto(global.URL);
+    await this.waitForExistAndClick(selector.logo_home_page);
+  }
 }
 
 module.exports = CommonClient;
