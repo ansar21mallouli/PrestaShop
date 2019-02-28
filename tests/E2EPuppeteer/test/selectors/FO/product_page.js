@@ -1,9 +1,9 @@
 module.exports = {
   productPage: {
-    first_product: '(//*[@id="content"]//h3[@itemprop="name"])[1]',
-    first_product_size: '//*[@id="group_1"]',
-    first_product_quantity: '//*[@id="quantity_wanted"]',
-    first_product_color: '//*[@id="group_2"]/li[2]/label/input',
+    first_product: '#content article:nth-child(1) h3',
+    first_product_size: '#group_1',
+    first_product_quantity: '#quantity_wanted',
+    first_product_color: '#group_2 li:nth-child(2) input',
     first_product_discount: '//*[@id="content"]/section/div/article[1]//span[contains(@class, "discount-percentage")]',
     product_name: '#main h1[itemprop=name]:nth-child(1)',
     product_price: '#main span[itemprop=price]:nth-child(1)',

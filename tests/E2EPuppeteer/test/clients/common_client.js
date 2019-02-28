@@ -48,10 +48,10 @@ class CommonClient {
     await page.click(selector);
   }
 
-  async waitForExistAndClick(selector, wait = 0) {
+  async waitForExistAndClick(selector, wait = 0, options = {}) {
     await page.waitFor(wait);
     await page.waitFor(selector);
-    await page.click(selector);
+    await page.click(selector, options);
   }
 
   async isVisible(selector, wait = 0, options = {}) {
@@ -150,6 +150,11 @@ class CommonClient {
       document.querySelector(selector).scrollIntoView();
     }, selector);
     await this.waitForVisibleAndClick(selector, pause, timeout)
+  }
+
+  async scrollWaitForExistAndClick(selector, pause = 0, timeout = 90000) {
+    await this.scrollTo(selector);
+    await this.waitForExistAndClick(selector, pause, options = {timeout: timeout})
   }
 
   async waitForSymfonyToolbar(AddProductPage, pause = 4000) {
@@ -282,6 +287,19 @@ class CommonClient {
   async accessToFO(selector) {
     await page.goto(global.URL);
     await this.waitForExistAndClick(selector.logo_home_page);
+  }
+
+  async getTextInVar(selector, globalVar, split = false, timeout = 90000) {
+    await this.waitForExist(selector, timeout);
+    if (split) {
+      await page.$eval(selector, el => el.innerText).then((text) => {
+        global.tab[globalVar] = text.split(': ')[1];
+      });
+    } else {
+      await page.$eval(selector, el => el.innerText).then((text) => {
+        global.tab[globalVar] = text;
+      });
+    }
   }
 }
 

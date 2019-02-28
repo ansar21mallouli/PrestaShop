@@ -3,7 +3,7 @@ module.exports = {
     dashboard_menu: '//*[@id="tab-AdminDashboard"]/a',
     Sell: {
       Orders: {
-        orders_menu: '//*[@id="subtab-AdminParentOrders"]/a',
+        orders_menu: '#subtab-AdminParentOrders',
         orders_submenu: '#subtab-AdminOrders',
         invoices_submenu: '#subtab-AdminInvoices',
         credit_slips_submenu: '#subtab-AdminSlip a',
