@@ -88,31 +88,31 @@ module.exports = {
 
       if (productData.hasOwnProperty('attribute')) {
         scenario('Add Attribute', client => {
-          test('should select the "Product with combination" radio button', () => client.scrollWaitForExistAndClick(AddProductPage.variations_type_button));
-          test('should go to "Combinations" tab', () => client.scrollWaitForExistAndClick(AddProductPage.variations_tab));
-          test('should select the variation', () => {
-            if (productData.type === 'combination') {
-              return promise
-                .then(() => client.createCombination(AddProductPage.combination_size_m, AddProductPage.combination_color_beige));
-            } else {
-              if (Object.keys(productData.attribute).length === 1) {
-                return promise
-                  .then(() => client.waitAndSetValue(AddProductPage.variations_input, productData.attribute[1].name + date_time + " : All"))
-                  .then(() => client.waitForExistAndClick(AddProductPage.variations_select));
-              } else {
-                Object.keys(productData.attribute).forEach(function (key) {
-                  if (productData.attribute[key].name === attributeData[key - 1].name) {
-                    promise = client.scrollWaitForExistAndClick(AddProductPage.attribute_group_name.replace('%NAME', productData.attribute[key].name + date_time), 150, 3000);
-                    Object.keys(attributeData[key - 1].values).forEach(function (index) {
-                      promise
-                        .then(() => client.scrollWaitForVisibleAndClick(AddProductPage.attribute_value_checkbox.replace('%ID', global.tab[productData.attribute[key].name + '_id']).replace('%S', index)));
-                    });
-                  }
-                });
-                return promise.then(() => client.pause(5000));
-              }
-            }
-          });
+          test('should select the "Product with combination" radio button', () => client.waitForExistAndClick(AddProductPage.variations_type_button));
+            test('should go to "Combinations" tab', () => client.scrollWaitForExistAndClick(AddProductPage.variations_tab));
+           test('should select the variation', () => {
+             if (productData.type === 'combination') {
+               return promise
+                 .then(() => client.createCombination(AddProductPage.combination_size_m, AddProductPage.combination_color_beige));
+             } else {
+               if (Object.keys(productData.attribute).length === 1) {
+                 return promise
+                   .then(() => client.waitAndSetValue(AddProductPage.variations_input, productData.attribute[1].name + date_time + " : All"))
+                   .then(() => client.waitForExistAndClick(AddProductPage.variations_select));
+               } else {
+                 Object.keys(productData.attribute).forEach(function (key) {
+                   if (productData.attribute[key].name === attributeData[key - 1].name) {
+                     promise = client.scrollWaitForExistAndClick(AddProductPage.attribute_group_name.replace('%NAME', productData.attribute[key].name + date_time), 150, 3000);
+                     Object.keys(attributeData[key - 1].values).forEach(function (index) {
+                       promise
+                         .then(() => client.scrollWaitForVisibleAndClick(AddProductPage.attribute_value_checkbox.replace('%ID', global.tab[productData.attribute[key].name + '_id']).replace('%S', index)));
+                     });
+                   }
+                 });
+                 return promise.then(() => client.pause(5000));
+               }
+             }
+           });
           test('should click on "Generate" button', () => client.scrollWaitForExistAndClick(AddProductPage.variations_generate));
           test('should verify the appearance of the green validation', () => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.'));
 
@@ -124,7 +124,7 @@ module.exports = {
             return promise
               .then(() => client.isVisible(AddProductPage.var_selected))
               .then(() => {
-                if (global.ps_mode_dev && !global.isVisible) {
+                if ( !global.isVisible) {
                   client.refresh();
                 } else {
                   client.pause(0);
@@ -143,103 +143,103 @@ module.exports = {
         }, 'product/create_combinations');
       }
 
-      if (productData.hasOwnProperty('feature')) {
-        for (let f = 0; f < productData['feature'].length; f++) {
-          scenario('Add Feature', client => {
-            test('should click on "Add feature" button', () => {
-              return promise
-                .then(() => client.scrollWaitForExistAndClick(AddProductPage.add_feature_to_product_button));
-            });
-            test('should select the created feature', () => client.selectFeature(AddProductPage, productData['feature'][f].name + date_time, productData['feature'][f].value, f));
-          }, 'product/product');
-        }
-      }
+       if (productData.hasOwnProperty('feature')) {
+         for (let f = 0; f < productData['feature'].length; f++) {
+           scenario('Add Feature', client => {
+             test('should click on "Add feature" button', () => {
+               return promise
+                 .then(() => client.scrollWaitForExistAndClick(AddProductPage.add_feature_to_product_button));
+             });
+             test('should select the created feature', () => client.selectFeature(AddProductPage, productData['feature'][f].name + date_time, productData['feature'][f].value, f));
+           }, 'product/product');
+         }
+       }
 
-      if (productData.hasOwnProperty('quantities')) {
-        scenario('Edit availibility preferences', client => {
-          test('should click on "Quantities"', () => client.scrollWaitForExistAndClick(AddProductPage.variations_tab, 50));
-          if (productData.quantities.stock === 'deny') {
-            test('should check "Deny orders"', () => client.waitForExistAndClick(AddProductPage.combination_availability_preferences.replace("%NUMBER", 0)));
-          }
-          else {
-            test('should check "Allow orders"', () => client.waitForExistAndClick(AddProductPage.combination_availability_preferences.replace("%NUMBER", 1)));
-          }
-        }, 'product/product');
-      }
+       if (productData.hasOwnProperty('quantities')) {
+         scenario('Edit availibility preferences', client => {
+           test('should click on "Quantities"', () => client.scrollWaitForExistAndClick(AddProductPage.variations_tab, 50));
+           if (productData.quantities.stock === 'deny') {
+             test('should check "Deny orders"', () => client.waitForExistAndClick(AddProductPage.combination_availability_preferences.replace("%NUMBER", 0)));
+           }
+           else {
+             test('should check "Allow orders"', () => client.waitForExistAndClick(AddProductPage.combination_availability_preferences.replace("%NUMBER", 1)));
+           }
+         }, 'product/product');
+       }
 
-      if (productData.hasOwnProperty('pricing')) {
-        scenario('Edit product pricing', client => {
-          test('should click on "Pricing"', () => client.scrollWaitForExistAndClick(AddProductPage.product_pricing_tab, 50));
-          test('should set the "Price per unit (tax excl.)"', () => client.waitAndSetValue(AddProductPage.unit_price, productData['pricing']['unitPrice']));
-          test('should set the "Unit"', () => client.waitAndSetValue(AddProductPage.unity, productData['pricing']['unity']));
-          test('should set the "Price (tax excl.)"', () => client.waitAndSetValue(AddProductPage.pricing_wholesale, productData['pricing']['wholesale']));
-          test('should click on "Add specific price" button', () => client.scrollWaitForExistAndClick(AddProductPage.pricing_add_specific_price_button));
-          test('should change the reduction type to "Percentage"', () => {
-            return promise
-              .then(() => client.pause(3000))
-              .then(() => client.waitAndSelectByValue(AddProductPage.specific_price_reduction_type_select, productData['pricing']['type']));
-          });
-          test('should set the "Discount" input', () => client.waitAndSetValue(AddProductPage.specific_price_discount_input, productData['pricing']['discount']));
-          test('should click on "Apply" button', () => client.waitForExistAndClick(AddProductPage.specific_price_save_button));
-        }, 'product/product');
-      }
+       if (productData.hasOwnProperty('pricing')) {
+         scenario('Edit product pricing', client => {
+           test('should click on "Pricing"', () => client.scrollWaitForExistAndClick(AddProductPage.product_pricing_tab, 50));
+           test('should set the "Price per unit (tax excl.)"', () => client.waitAndSetValue(AddProductPage.unit_price, productData['pricing']['unitPrice']));
+           test('should set the "Unit"', () => client.waitAndSetValue(AddProductPage.unity, productData['pricing']['unity']));
+           test('should set the "Price (tax excl.)"', () => client.waitAndSetValue(AddProductPage.pricing_wholesale, productData['pricing']['wholesale']));
+           test('should click on "Add specific price" button', () => client.scrollWaitForExistAndClick(AddProductPage.pricing_add_specific_price_button));
+           test('should change the reduction type to "Percentage"', () => {
+             return promise
+               .then(() => client.pause(3000))
+               .then(() => client.waitAndSelectByValue(AddProductPage.specific_price_reduction_type_select, productData['pricing']['type']));
+           });
+           test('should set the "Discount" input', () => client.waitAndSetValue(AddProductPage.specific_price_discount_input, productData['pricing']['discount']));
+           test('should click on "Apply" button', () => client.waitForExistAndClick(AddProductPage.specific_price_save_button));
+         }, 'product/product');
+       }
 
-      if (productData.hasOwnProperty('options')) {
-        scenario('Edit product options', client => {
-          test('should click on "Options"', () => client.scrollWaitForExistAndClick(AddProductPage.product_options_tab));
-          test('should select the attached file to the product', () => {
-            promise = client.scrollTo(AddProductPage.options_add_new_file_button);
-            for (let i = 0; i < productData.options.filename.length; i++) {
-              promise = client.waitForExistAndClick(AddProductPage.attached_file_checkbox.replace('%FileName', productData.options.filename[i] + global.date_time), 1000);
-            }
-            return promise
-              .then(() => client.waitForSymfonyToolbar(AddProductPage, 1000))
-              .then(() => client.pause(1000));
-          });
-        }, 'product/product');
-      }
+       if (productData.hasOwnProperty('options')) {
+         scenario('Edit product options', client => {
+           test('should click on "Options"', () => client.scrollWaitForExistAndClick(AddProductPage.product_options_tab));
+           test('should select the attached file to the product', () => {
+             promise = client.scrollTo(AddProductPage.options_add_new_file_button);
+             for (let i = 0; i < productData.options.filename.length; i++) {
+               promise = client.waitForExistAndClick(AddProductPage.attached_file_checkbox.replace('%FileName', productData.options.filename[i] + global.date_time), 1000);
+             }
+             return promise
+               .then(() => client.waitForSymfonyToolbar(AddProductPage, 1000))
+               .then(() => client.pause(1000));
+           });
+         }, 'product/product');
+       }
 
-      if (productData.hasOwnProperty('categories')) {
-        scenario('Add category', client => {
-          test('should search for the category', () => client.waitAndSetValue(AddProductPage.search_categories, productData.categories['1']['name'] + date_time));
-          test('should select the category', () => client.waitForVisibleAndClick(AddProductPage.list_categories));
-          if (Object.keys(productData.categories).length > 1) {
-            Object.keys(productData.categories).forEach(function (key) {
-              if (productData.categories[key]["main_category"] && productData.categories[key]["name"] !== 'home') {
-                test('should choose the created category as default', () => {
-                  return promise
-                    .then(() => client.scrollTo(AddProductPage.category_radio.replace('%S', productData.categories[key]["name"] + date_time)))
-                    .then(() => client.waitForExistAndClick(AddProductPage.category_radio.replace('%S', productData.categories[key]["name"] + date_time), 4000));
-                });
-              }
-            });
-          } else {
-            test('should delete the home category', () => client.waitForExistAndClick(AddProductPage.default_category));
-          }
-        }, 'product/product');
-      }
+       if (productData.hasOwnProperty('categories')) {
+         scenario('Add category', client => {
+           test('should search for the category', () => client.waitAndSetValue(AddProductPage.search_categories, productData.categories['1']['name'] + date_time));
+           test('should select the category', () => client.waitForVisibleAndClick(AddProductPage.list_categories));
+           if (Object.keys(productData.categories).length > 1) {
+             Object.keys(productData.categories).forEach(function (key) {
+               if (productData.categories[key]["main_category"] && productData.categories[key]["name"] !== 'home') {
+                 test('should choose the created category as default', () => {
+                   return promise
+                     .then(() => client.scrollTo(AddProductPage.category_radio.replace('%S', productData.categories[key]["name"] + date_time)))
+                     .then(() => client.waitForExistAndClick(AddProductPage.category_radio.replace('%S', productData.categories[key]["name"] + date_time), 4000));
+                 });
+               }
+             });
+           } else {
+             test('should delete the home category', () => client.waitForExistAndClick(AddProductPage.default_category));
+           }
+         }, 'product/product');
+       }
 
-      if (productData.hasOwnProperty('tax_rule')) {
-        test('should select the "Tax rule" to "' + productData.tax_rule + '"', () => {
-          return promise
-            .then(() => client.scrollWaitForExistAndClick(AddProductPage.tax_rule))
-            .then(() => client.waitForVisibleAndClick(AddProductPage.tax_option.replace('%V', productData.tax_rule)));
-        });
-      }
-      scenario('Save the created product', client => {
-        test('should check then close symfony toolbar', () => client.waitForSymfonyToolbar(AddProductPage));
-        test('should switch the product online and verify the appearance of the green validation', () => {
-          return promise
-            .then(() => client.waitForExistAndClick(AddProductPage.product_online_toggle, 3000))
-            .then(() => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.', 3000));
-        });
-        test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 5000));
-        test('should check and close the green validation', async () => {
-          return promise
-            .then(() => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.', 'equal', 2000))
-            .then(() => client.waitForExistAndClick(AddProductPage.close_validation_button, 1000));
-        });
-      }, 'product/product');
+       if (productData.hasOwnProperty('tax_rule')) {
+         test('should select the "Tax rule" to "' + productData.tax_rule + '"', () => {
+           return promise
+             .then(() => client.scrollWaitForExistAndClick(AddProductPage.tax_rule))
+             .then(() => client.waitForVisibleAndClick(AddProductPage.tax_option.replace('%V', productData.tax_rule)));
+         });
+       }
+       scenario('Save the created product', client => {
+         test('should check then close symfony toolbar', () => client.waitForSymfonyToolbar(AddProductPage));
+         test('should switch the product online and verify the appearance of the green validation', () => {
+           return promise
+             .then(() => client.waitForExistAndClick(AddProductPage.product_online_toggle, 3000))
+             .then(() => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.', 3000));
+         });
+         test('should click on "Save" button', () => client.waitForExistAndClick(AddProductPage.save_product_button, 5000));
+         test('should check and close the green validation', async () => {
+           return promise
+             .then(() => client.checkTextValue(AddProductPage.validation_msg, 'Settings updated.', 'equal', 2000))
+             .then(() => client.waitForExistAndClick(AddProductPage.close_validation_button, 1000));
+         });
+       }, 'product/product');
     }, 'product/product');
 
   },
@@ -253,7 +253,7 @@ module.exports = {
       test('should check the existence of product price TE', () => client.checkProductPriceTE(productData.price));
       test('should check the existence of product quantity', () => client.checkTextValue(AddProductPage.catalog_product_quantity, productData.quantity));
       test('should check the existence of product status', () => client.checkTextValue(AddProductPage.catalog_product_online, 'check'));
-      test('should click on "Reset button"',async () => await client.waitForExistAndClick(AddProductPage.catalog_reset_filter));
+      test('should click on "Reset button"', async () => await client.waitForExistAndClick(AddProductPage.catalog_reset_filter));
     }, 'product/check_product');
   },
   sortProduct: async function (selector, sortBy, isNumber = false, priceWithCurrency = false) {

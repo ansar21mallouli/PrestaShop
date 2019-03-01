@@ -17,18 +17,17 @@ class Discount extends CommonClient {
    * @param value
    * @returns {*}
    */
-  chooseCustomer(selectorInput, selectorOption, value) {
-    return this.client
-      .waitAndSetValue(selectorInput, value)
-      .pause(2000)
-      .keys('ArrowDown')
-      .waitForVisibleAndClick(selectorOption);
+  async chooseCustomer(selectorInput, selectorOption, value) {
+    await this.waitAndSetValue(selectorInput, value);
+    await this.pause(2000);
+    await page.keyboard.press('ArrowDown');
+    await this.waitForVisibleAndClick(selectorOption);
   }
 
   setPromoCode(selectorInput, selectorButton, value) {
     return this.client
-      .waitAndSetValue(selectorInput, tab[value],2000)
-      .waitForExistAndClick(selectorButton,2000);
+      .waitAndSetValue(selectorInput, tab[value], 2000)
+      .waitForExistAndClick(selectorButton, 2000);
   }
 
   checkTotalPrice(selector, option = 'percent') {
@@ -36,7 +35,7 @@ class Discount extends CommonClient {
       .pause(2000)
       .then(() => this.client.getText(selector))
       .then((code) => {
-        if(option === 'amount') {
+        if (option === 'amount') {
           expect(code.split('€')[1]).to.be.equal(((tab["totalProducts"].split('€')[1] * 0.5) - 24).toPrecision(4).toString());
         } else {
           expect(code.split('€')[1]).to.be.equal(((tab["totalProducts"].split('€')[1] * 0.5) * 0.5).toPrecision(4).toString());

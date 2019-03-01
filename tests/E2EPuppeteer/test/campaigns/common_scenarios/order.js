@@ -149,7 +149,7 @@ module.exports = {
       test('should search for a product by name', () => client.waitAndSetValue(CreateOrder.product_search_input, productData.name + global.date_time));
       test('should set the product combination', () => client.waitAndSelectByValue(CreateOrder.product_combination, global.combinationId));
       test('should set the product quantity', () => client.waitAndSetValue(CreateOrder.quantity_input.replace('%NUMBER', 1), '4'));
-      test('should click on "Add to cart" button', () => client.scrollWaitForExistAndClick(CreateOrder.add_to_cart_button));
+      test('should click on "Add to cart" button', () => client.waitForExistAndClick(CreateOrder.add_to_cart_button));
       test('should get the basic product price', () => client.getTextInVar(CreateOrder.basic_price_value, global.basic_price));
       test('should set the delivery option ', () => {
         return promise
@@ -159,9 +159,9 @@ module.exports = {
       test('should get the  shipping price', () => client.getTextInVar(CreateOrder.shipping_price, 'price'));
       test('should get the total with taxes', () => client.getTextInVar(CreateOrder.total_with_tax, 'total_tax'));
       test('should add an order message ', () => client.addOrderMessage('Order message test'));
-      test('should set the payment type ', () => client.waitAndSelectByValue(CreateOrder.payment, 'ps_checkpayment'));
+      /*test('should set the payment type ', () => client.waitAndSelectByValue(CreateOrder.payment, 'ps_checkpayment'));
       test('should set the order status ', () => client.waitAndSelectByValue(OrderPage.order_state_select, '1'));
-      test('should click on "Create the order"', () => client.waitForExistAndClick(CreateOrder.create_order_button));
+      test('should click on "Create the order"', () => client.waitForExistAndClick(CreateOrder.create_order_button));*/
     }, 'order');
   },
   checkOrderInBO: function (clientType = "client", checkCustomer = false) {

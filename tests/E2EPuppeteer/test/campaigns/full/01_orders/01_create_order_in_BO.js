@@ -116,7 +116,10 @@ let secondCustomerData = {
 
 scenario('Create order in the Back Office', () => {
   scenario('Login in the Back Office', client => {
-    test('should open the browser', () => client.open());
+    test('should open the browser', async () => {
+      await client.open();
+      await client.startTracing('FullCreateOrderBO');
+    });
     test('should login successfully in the Back Office', () => client.signInBO(AccessPageBO));
   }, 'order');
 
@@ -142,7 +145,7 @@ scenario('Create order in the Back Office', () => {
         return promise
           .then(() => client.waitAndSetValue(HomePage.search_input, productData[0].name + date_time))
           .then(() => client.waitForExistAndClick(HomePage.search_icon))
-          .then(() => client.waitForExistAndClick(productPage.productLink.replace('%PRODUCTNAME', productData[0].name + date_time)));
+          .then(() => client.waitForExistAndClick(productPage.productLink.replace('%PRODUCTNAME', productData[0].name.toLowerCase() + date_time)));
       });
       test('should choose "M" from size list', () => client.waitAndSelectByValue(productPage.first_product_size, '2'));
       test('should set the product "Quantity" input', () => client.waitAndSetValue(productPage.first_product_quantity, '4'));
@@ -152,7 +155,7 @@ scenario('Create order in the Back Office', () => {
       test('should go to the Back Office', () => client.switchWindow(0));
     }, 'customer');
   }, 'order');
-  commonScenariosProduct.createProduct(AddProductPage, productData[1]);
+ commonScenariosProduct.createProduct(AddProductPage, productData[1]);
   commonScenariosDiscount.createCartRule(cartRuleData[0], 'firstCartRuleCode');
   scenario('Click on "Stop the OnBoarding" button', client => {
     test('should check and click on "Stop the OnBoarding" button', () => {
@@ -406,4 +409,4 @@ scenario('Create order in the Back Office', () => {
   scenario('Click on "Reset" button', client => {
     test('should click on reset button', () => client.waitForExistAndClick(Localization.Currencies.reset_button));
   }, 'common_client');
-}, 'order', true);
+}, 'order', false);
